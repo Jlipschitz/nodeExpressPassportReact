@@ -62,8 +62,9 @@ export default class App extends Component {
 
   localAuth = (email, password) =>
     request.post({
-      route: '/auth/login',
+      route: !email ? '/auth/addPassword' : '/auth/login', // if no email provided they just want to add password
       body: {
+        _id: this.state.user && this.state.user._id || null, // security check when adding password
         email: email || this.state.user.email, //the "or" handles if they're already authedand are adding a password to their account
         password: password
       }
